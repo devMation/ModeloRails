@@ -1,0 +1,1 @@
+echo "La date d'aujourd'hui est :" . date("h:i:sa");

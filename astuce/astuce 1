@@ -1,0 +1,8 @@
+$language = "js php, python, c++, c#";
+
+
+$transformArray = explode(" ", $language);
+
+
+
+print_r($transformArray);
