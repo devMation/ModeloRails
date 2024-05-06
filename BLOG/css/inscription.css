@@ -1,0 +1,30 @@
+body {
+    background: url('../pictures/serie8_allemande_ins.jpg') center/cover fixed;
+
+}
+
+
+
+
+
+.form_Inscription {
+    margin: 12% auto;
+    background-color: rgba(255, 255, 255, 0.697);
+    width: 90%;
+    padding: 50px;
+    border: 1px solid black;
+    border-radius: 20px;
+
+}
+
+label {
+    font-weight: 500;
+}
+
+
+
+
+
+input {
+    height: 40px;
+}

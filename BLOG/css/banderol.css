@@ -1,0 +1,6 @@
+.banderol {
+    width: 60%;
+    height: 20px;
+    background-color: red;
+    transform: translateY('450px');
+}
