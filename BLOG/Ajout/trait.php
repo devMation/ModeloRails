@@ -6,10 +6,10 @@ require '../display/trait.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   // $id = $_POST['id'];
-  $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
-  $description = isset($_POST['description']) ? $_POST['description'] : '';
-  $prix = isset($_POST['prix']) ? $_POST['prix'] : '';
-  $image = isset($_POST['image']) ? $_POST['image'] : '';
+  $nom = !empty($_POST['nom']) ? $_POST['nom'] : '';
+  $description = !empty($_POST['description']) ? $_POST['description'] : '';
+  $prix = !empty($_POST['prix']) ? $_POST['prix'] : '';
+  $image = !empty($_POST['image']) ? $_POST['image'] : '';
 }
 
 // Préparation de la requête d'insertion

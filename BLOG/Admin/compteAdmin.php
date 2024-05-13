@@ -4,7 +4,10 @@ require '../Boostrap/boostrap.php';
 require '../Boostrap/headerAdmin.php';
 require '../Admin/scriptAdmin.php';
 
+require '../connect_database/connect.php';
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -19,12 +22,11 @@ require '../Admin/scriptAdmin.php';
 
 <body>
     <div class="encadrement-admin">
-        <form action="../Admin/scriptAdmin.php" method="post" class="d-flex flex-column mb-3 w-50 mx-auto ">
+        <form action="../Admin/scriptAdmin.php" method="GET" class="d-flex flex-column mb-3 w-50 mx-auto ">
 
             <?php
-            if (isset($mess)) {
-                echo $mess;
-            }
+            if (!empty($mess))
+                echo "<p class='text-white text-center bg-success p-3'>$mess</p>  ";
 
             ?>
             <h1 class="text-center">Compte Admin</h1>
@@ -34,6 +36,13 @@ require '../Admin/scriptAdmin.php';
             <input type="password" name="password" id="nomArticle">
 
             <input type="submit" name="valider" value="Se connecter">
+
+            <?php
+            if (!empty($ok)) {
+                echo "<p class='text-white text-center bg-success p-3'>$ok</p>";
+            }
+
+            ?>
 
         </form>
     </div>
