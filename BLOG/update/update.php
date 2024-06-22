@@ -1,5 +1,6 @@
 <?php
 require '../Boostrap/boostrap.php';
+require '../Boostrap/headerNav.php'
 
 ?>
 <!DOCTYPE html>
@@ -34,14 +35,14 @@ input {
 }
 </style>
 
-
 <body>
-    <?= require '../Boostrap/header.php' ?>
+    <a class="btn btn-warning m-3" href="../Ajout/ajoutArticles.php" role="button">Retour</a>
+
     <div class="encadrement">
         <form action="../update/traitUpdate.php" method="POST" class=" d-flex flex-column mb-2 w-50 mx-auto " style="
             margin-top: 6%;">
             <h1 class="text-center">Modifier un article</h1>
-            <input type="text" name="id" value="<?=$_GET['id']?>" hidden>
+            <input type="text" name="id" value="<?= $_GET['id'] ?>" hidden>
             <label for=" nomArticle">Nom de l'article</label>
             <input type="text" name="nom" id="nomArticle">
             <label for="description">Description de l'article</label>
@@ -50,7 +51,7 @@ input {
             <input type="number" name="prix" id="prix" class="w-25">
             <label for="picture">Image</label>
             <input type="text" name="image" id="picture">
-            <input type="submit" value="Ajouter" class="w-75 mx-auto m-4">
+            <input type="submit" value="Ajouter" class="w-75 mx-auto m-4 btn-warning">
         </form>
     </div>
     </div>

@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $prix = !empty($_POST['prix']) ? $_POST['prix'] : '';
   $image = !empty($_POST['image']) ? $_POST['image'] : '';
 }
-
 // Préparation de la requête d'insertion
 $prep = $conn->prepare("INSERT INTO produit (nom, description, prix, image) VALUES (?, ?, ?, ?)");
 

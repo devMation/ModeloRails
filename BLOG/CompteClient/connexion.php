@@ -1,39 +1,40 @@
 <?php
-require '../Boostrap/boostrap.php';
-require '../Boostrap/headerNav.php';
+session_start();
 require '../connect_database/connect.php';
+require '../Boostrap/boostrap.php';
 
+$errorMsg = "";
 
-if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    $email = $_POST['email'];
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
 
-    //crypte le password
+    if ($email != "" && $password != "") {
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
+        $stmt->execute([$email, $password]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $password = "aq1" . sha1($password . "17874à") . "548";
+        if ($user && $user['id'] != false) {
+            // Set session variables
+            $_SESSION['user'] = $user;
 
-    $req = $conn->prepare("SELECT * FROM inscription_user where email = ?");
-    $req->execute(array($email));
-
-
-
-    while ($user = $req->fetch()) {
-        if ($password == $user['password']) {
-            header("location: ../CompteClient/connexion.php?succees=1");
+            // Redirect to the dashboard or another page
+            header("Location: ./dash.php");
+           exit();
+            // Ensure no further code is executed after redirection
+        } else {
+            $errorMsg = "Email ou mot de passe incorrect";
         }
     }
 }
-
-header("location: ../CompteClient/connexion.php?error=1")
-
-
-
-
-
 ?>
 
+
 <body>
-    <div class="container " style="margin: 8% auto;">
+    <?php require_once '../Boostrap/headerNav.php' ?>
+
+    <div class="container" style="margin: 8% auto;">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -41,17 +42,10 @@ header("location: ../CompteClient/connexion.php?error=1")
                         Connexion au Compte
                     </div>
                     <div class="card-body">
-                        <?php
-                            if(isset($_GET['error'])) {
-                                echo "<p class='text-white text-center bg-warning p-3'>On peut pas vous identifier</p>";
-                            }else if(isset($_GET['success'])) {
-                                echo "<p class='text-white text-center bg-success p-3'>Vous etes mtn connect</p>";
-                            }
-                        ?>
-                        <form method="post">
+                        <form method="post" action="" onsubmit="return validateForm()">
                             <div class="form-group">
                                 <label for="email">Adresse Email</label>
-                                <input type="email" class="form-control" name="email" id=" email"
+                                <input type="email" class="form-control" name="email" id="email"
                                     aria-describedby="emailHelp" placeholder="Entrez votre email" required>
                                 <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre
                                     adresse email avec personne d'autre.</small>
@@ -66,24 +60,40 @@ header("location: ../CompteClient/connexion.php?error=1")
                             </label>
 
                             <div class="form-check">
-                                <a href="../InscriptionUser/inscription.php">Vous avez pas de
-                                    compte
-                                    crée en
-                                    un
-                                    ?</a>
+                                <a href="../InscriptionUser/inscription.php">Vous n'avez pas de compte ? Créez-en un</a>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Connexion</button>
+                            <button type="submit" class="btn btn-warning mt-3">Connexion</button>
                         </form>
-
-
+                        <?php if ($errorMsg) : ?>
+                        <p class="bg-danger p-3 m-2 text-white"><?php echo $errorMsg; ?></p>
+                        <?php endif; ?>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+    <?php require '../Boostrap/footerAccueil.php'; ?>
+    <script>
+    function validateForm() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-    <?= require '../Boostrap/footerAccueil.php' ?>
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const passwordRegex = /^.{7,}$/;
+
+        if (!emailRegex.test(email)) {
+            alert('Veuillez entrer une adresse email valide.');
+            return false;
+        }
+
+        if (!passwordRegex.test(password)) {
+            alert('Le mot de passe doit contenir au moins 7 caractères.');
+            return false;
+        }
+
+        return true;
+    }
+    </script>
 </body>
 
 </html>

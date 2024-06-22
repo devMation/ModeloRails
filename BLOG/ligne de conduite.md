@@ -15,3 +15,27 @@ sécurisée
 faire le detail de l'article
 
 fait l'amination js
+
+
+
+---------------------------
+
+A faire
+
+le detail   ---> OK
+Ajout au panier ---> pas encore
+securiser le compte admin par le server et par l'url
+securiser la connexion
+quand le user est connect afficher une icone connecter avec une liste 
+acceder au profil , et deconnecter
+cree un profil user;
+
+
+
+// par la suite cree un dashbord
+
+
+
+
+
+

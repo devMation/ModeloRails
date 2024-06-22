@@ -6,5 +6,15 @@
 
 
 .colorBacgorundNav {
-    background-color: #800000;
+    background-color: #f89019;
+}
+
+#logo-lien {
+    height: 35px;
+    width: 50px;
+}
+
+.header-bg {
+    background: url('../pictures/bg.jpeg') center/cover;
+    min-height: 100vh;
 }
